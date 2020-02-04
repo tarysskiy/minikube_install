@@ -1,0 +1,18 @@
+---
+- name: "Create kubectl directory"
+  file:
+    path: "{{ kubectl_install_dir }}"
+    state: directory 
+
+- name: "Downland kubectl"
+  get_url:
+    url: "{{ kubectl_repo_url }}"
+    dest: "{{ kubectl_install_dir }}/kubectl"
+    mode: 0755
+
+- name: "Create symbolic link" 
+  file:
+   src: "{{ kubectl_install_dir }}/kubectl"
+   dest: "/usr/bin/kubectl"
+   state: link
+   mode: 0755

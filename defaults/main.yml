@@ -1,0 +1,12 @@
+---
+minikube_repo_url: "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"
+
+minikube_install_dir: /usr/local/bin
+
+minikube_vm_driver: kvm2
+
+install_kubectl: 1 # 0 | 1  
+
+kubectl_repo_url: "https://storage.googleapis.com/kubernetes-release/release/v1.17.0/bin/linux/amd64/kubectl"
+
+kubectl_install_dir: /usr/local/bin

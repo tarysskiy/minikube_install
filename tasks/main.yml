@@ -1,0 +1,25 @@
+---
+- name: "Create minikube directory"
+  file:
+    path: "{{ minikube_install_dir }}"
+    state: directory 
+
+- name: "Downland minikube"
+  get_url:
+    url: "{{ minikube_repo_url }}"
+    dest: "{{ minikube_install_dir }}/minikube"
+    mode: 0755
+
+- name: "Create symbolic link" 
+  file:
+   src: "{{ minikube_install_dir }}/minikube"
+   dest: "/usr/bin/minikube"
+   state: link
+   mode: 0755
+
+- name: "Minikube install vm-driver"
+  command: "minikube start --vm-driver={{ minikube_vm_driver }}"
+
+- name: "Install Kubectl"
+  include: kubectl.yml
+  when: install_kubectl|int > 0
