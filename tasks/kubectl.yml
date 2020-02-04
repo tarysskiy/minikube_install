@@ -1,18 +1,15 @@
 ---
-- name: "Create kubectl directory"
-  file:
-    path: "{{ kubectl_install_dir }}"
-    state: directory 
+- name: "Install kubernetes repo file"
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgcheck: "{{ item.gpgcheck }}"
+    gpgkey: "{{ item.gpgkey }}"
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ kubectl_repo_file }}"
 
-- name: "Downland kubectl"
-  get_url:
-    url: "{{ kubectl_repo_url }}"
-    dest: "{{ kubectl_install_dir }}/kubectl"
-    mode: 0755
-
-- name: "Create symbolic link" 
-  file:
-   src: "{{ kubectl_install_dir }}/kubectl"
-   dest: "/usr/bin/kubectl"
-   state: link
-   mode: 0755
+- name: "Install Kubectl"
+  yum:
+    name: kubectl
+    state: present
