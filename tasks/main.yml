@@ -17,8 +17,8 @@
    state: link
    mode: 0755
 
-# - name: "Minikube install vm-driver"
-#   command: "minikube start --vm-driver={{ minikube_vm_driver }}"
+- name: "Minikube install vm-driver"
+  command: "minikube start --vm-driver={{ minikube_vm_driver }}"
 
 - name: "Install Kubectl"
   include: kubectl.yml
